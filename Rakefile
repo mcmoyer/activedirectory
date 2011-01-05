@@ -7,7 +7,7 @@ task :default => [ :repackage ]
 
 spec = Gem::Specification.new do |gem|
 	gem.name     = "activedirectory"
-	gem.version  = "1.0.1"
+	gem.version  = "1.0.2"
 	gem.date     = "2008-12-01"
 	gem.summary  = "An interface library for accessing Microsoft's Active Directory."
 	gem.description = "ActiveDirectory uses Net::LDAP to provide a means of accessing and modifying an Active Directory data store."
@@ -24,12 +24,12 @@ spec = Gem::Specification.new do |gem|
 	gem.require_path = "lib"
 	gem.has_rdoc     = true
 
-	gem.add_dependency("ruby-net-ldap", [">= 0.0.4"])
+	gem.add_dependency "net-ldap", "~> 0.1.1"
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
 	pkg.gem_spec = spec
-	pkg.need_tar = true # Generate a tarball everytime we build
+	pkg.need_tar = false # Generate a tarball everytime we build
 end
 
 Rake::RDocTask.new do |rdoc|
