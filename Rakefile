@@ -25,7 +25,7 @@ spec = Gem::Specification.new do |gem|
 	gem.require_path = "lib"
 	gem.has_rdoc     = true
 
-	gem.add_dependency "net-ldap", "~> 0.1.1"
+	gem.add_dependency "ruby-net-ldap", "~> 0.4"
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
