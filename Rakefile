@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rake/gempackagetask'
 require 'rake/rdoctask'
+require 'rake/testtask'
 
 desc 'Build Gem and Packages for Rubyforge'
 task :default => [ :repackage ]
@@ -35,4 +36,10 @@ end
 Rake::RDocTask.new do |rdoc|
 	rdoc.main = "README"
 	rdoc.rdoc_files.include("README", "lib/**/*.rb")
+end
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/*_test.rb']
+  t.verbose = true
 end

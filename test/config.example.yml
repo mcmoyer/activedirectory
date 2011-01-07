@@ -1,0 +1,19 @@
+:connection:
+  :host: myserver@mydomain.com 
+  :port: 389
+  :base: dc=mydomain,dc=com
+  :method: :simple_tls
+  :auth:
+    :username: adminuser@mydomain.com
+    :password: password
+    :method: :simple
+
+:test:
+  :email: testertester999@anydomain.com
+  :samaccountname: testertester999
+  :group_1_name: wxyz1122334455
+  :group_2_name: wxyz112233445566
+
+
+
+
