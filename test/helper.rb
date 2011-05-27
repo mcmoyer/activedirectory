@@ -8,7 +8,7 @@ dir = File.dirname(File.expand_path(__FILE__))
 $LOAD_PATH.unshift(File.join(dir, "..", "lib"))
 $LOAD_PATH.unshift(dir)
 
-gem 'ruby-net-ldap'
+gem 'net-ldap'
 
 
 CONFIG = YAML.load(File.open(File.join(dir,"config.yml")))
