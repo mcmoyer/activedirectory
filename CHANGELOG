@@ -1,7 +1,0 @@
-2008-12-01	James Hunt	<filefrog@gmail.com>
-
-* Fixed bug [#22307] "syntax errors"
-  (http://rubyforge.org/tracker/index.php?func=detail&aid=22307&group_id=1580&atid=6154)
-
-  Broke out module declarations
-  Added parens around _merge_ call

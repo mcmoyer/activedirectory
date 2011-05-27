@@ -1,10 +1,7 @@
 #-- license
 #
-# This file is part of the Ruby Active Directory Project
-# on the web at http://rubyforge.org/projects/activedirectory
-#
-#  Copyright (c) 2008, James Hunt <filefrog@gmail.com>
-#    based on original code by Justin Mecham
+#  Based on original code by Justin Mecham and James Hunt
+#  at http://rubyforge.org/projects/activedirectory
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -19,17 +19,22 @@
 #++ license
 
 module ActiveDirectory
-	class Computer < Base
-		def self.filter # :nodoc:
-			Net::LDAP::Filter.eq(:objectClass,'computer')
-		end
+	module FieldType
+		class GroupDnArray
+			#
+			# Encodes an array of objects into a list of dns
+			# 
+			def self.encode(obj_array)
+				obj_array.collect { |obj| obj.dn }
+			end
 
-		def self.required_attributes # :nodoc:
-			{ :objectClass => [ 'top', 'person', 'organizationalPerson', 'user', 'computer' ] }
-		end
-
-		def hostname
-			dNSHostName || name
+			#
+			# Decodes a list of DNs into the objects that they are
+			#
+			def self.decode(dn_array)
+				# How to do user or group?
+				Group.find(:all, :distinguishedname => dn_array)
+			end
 		end
 	end
 end

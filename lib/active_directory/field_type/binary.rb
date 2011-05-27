@@ -19,17 +19,21 @@
 #++ license
 
 module ActiveDirectory
-	class Computer < Base
-		def self.filter # :nodoc:
-			Net::LDAP::Filter.eq(:objectClass,'computer')
-		end
+  module FieldType
+    class Binary
+      #
+      # Encodes a hex string into a GUID
+      #
+      def self.encode(hex_string)
+        [hex_string].pack("H*")
+      end
 
-		def self.required_attributes # :nodoc:
-			{ :objectClass => [ 'top', 'person', 'organizationalPerson', 'user', 'computer' ] }
-		end
-
-		def hostname
-			dNSHostName || name
-		end
-	end
+      #
+      # Decodes a binary GUID as a hex string
+      #
+      def self.decode(guid)
+        guid.unpack("H*").first.to_s
+      end
+    end
+  end
 end

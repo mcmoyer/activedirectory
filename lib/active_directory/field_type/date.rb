@@ -1,10 +1,7 @@
 #-- license
 #
-# This file is part of the Ruby Active Directory Project
-# on the web at http://rubyforge.org/projects/activedirectory
-#
-#  Copyright (c) 2008, James Hunt <filefrog@gmail.com>
-#    based on original code by Justin Mecham
+#  Based on original code by Justin Mecham and James Hunt
+#  at http://rubyforge.org/projects/activedirectory
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,21 +19,21 @@
 #++ license
 
 module ActiveDirectory
-	class Password
-		#
-		# Encodes an unencrypted password into an encrypted password
-		# that the Active Directory server will understand.
-		#
-		def self.encode(password)
-			("\"#{password}\"".split(//).collect { |c| "#{c}\000" }).join
-		end
+  module FieldType
+    class Date
+      #
+      # Converts a time object into an ISO8601 format compatable with Active Directory
+      # 
+      def self.encode(local_time)
+        local_time.strftime('%Y%m%d%H%M%S.0Z')
+      end
 
-		#
-		# Always returns nil, since you can't decrypt the User's encrypted
-		# password.
-		#
-		def self.decode(hashed)
-			nil
-		end
-	end
+      #
+      # Decodes an Active Directory date when stored as ISO8601
+      #
+      def self.decode(remote_time)
+        Time.parse(remote_time)
+      end
+    end
+  end
 end
