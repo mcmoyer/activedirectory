@@ -1,4 +1,7 @@
-require 'psych'
+unless Config::CONFIG["ruby_version"] == '1.8'
+  require 'psych'
+end
+require 'rake/testtask'
 
 begin
   require 'jeweler'
