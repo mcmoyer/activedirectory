@@ -25,9 +25,14 @@ module ActiveDirectory
     # the passed Group object.
     #
     def member_of?(usergroup)
-      group_dns = memberOf
-      return false if group_dns.nil? || group_dns.empty?
-      #group_dns = [group_dns] unless group_dns.is_a?(Array)
+      begin
+        groups = memberOf
+      rescue ArgumentError
+        #if we catch an error from the memberOf call, it probably means there are no groups
+        return false
+      end
+      return false if groups.nil? || groups.empty?
+      group_dns = [groups].flatten.collect {|g| g.dn }
       group_dns.include?(usergroup.dn)
     end
 

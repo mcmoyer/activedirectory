@@ -32,6 +32,10 @@ class GroupAssignmentTest < ActiveSupport::TestCase
     assert_not_nil @ad_group2
   end
 
+  test "user is not assigned to any groups" do
+    assert !@ad_group1.has_member?(@ad_user)
+  end
+
   test "user is assigned to one group" do
     @ad_group1.add(@ad_user)
     @ad_user.reload
