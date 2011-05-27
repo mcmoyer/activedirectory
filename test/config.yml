@@ -1,0 +1,19 @@
+:connection:
+  :host: acignet01.acig.net
+  :port: 389
+  :base: dc=acig,dc=net
+  :method: :simple_tls
+  :auth:
+    :username: machineservices@acig.net
+    :password: Blue_Mark#23
+    :method: :simple
+
+:test:
+  :email: testertester999@acig.com
+  :samaccountname: testertester999
+  :group_1_name: wxyz1122334455
+  :group_2_name: wxyz112233445566
+
+
+
+
