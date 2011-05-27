@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{active_directory}
-  s.version = "1.5.4"
+  s.version = "1.5.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Adam T Kerr"]
-  s.date = %q{2011-04-28}
+  s.authors = ["Adam T Kerr - Marlon Moyer"]
+  s.date = %q{2011-05-27}
   s.description = %q{ActiveDirectory uses Net::LDAP to provide a means of accessing and modifying an Active Directory data store.  This is a fork of the activedirectory gem.}
-  s.email = %q{ajrkerr@gmail.com}
+  s.email = %q{ajrkerr@gmail.com;marlon@mcmoyer.com}
   s.extra_rdoc_files = [
     "README.md"
   ]
@@ -34,11 +34,17 @@ Gem::Specification.new do |s|
     "lib/active_directory/field_type/user_dn_array.rb",
     "lib/active_directory/group.rb",
     "lib/active_directory/member.rb",
-    "lib/active_directory/user.rb"
+    "lib/active_directory/user.rb",
+    "test/config.example.yml",
+    "test/config.yml",
+    "test/group_assignment_test.rb",
+    "test/groups_test.rb",
+    "test/helper.rb",
+    "test/users_test.rb"
   ]
-  s.homepage = %q{http://github.com/ajrkerr/active_directory}
+  s.homepage = %q{http://github.com/mcmoyer/activedirectory}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.rubygems_version = %q{1.6.0}
   s.summary = %q{An interface library for accessing Microsoft's Active Directory.}
 
   if s.respond_to? :specification_version then
