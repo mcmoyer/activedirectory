@@ -65,6 +65,7 @@ module ActiveDirectory
     #
     def self.setup(settings)
       @@settings = settings
+      @@ldap_connect = false
       @@ldap = Net::LDAP.new(settings)
     end
 
