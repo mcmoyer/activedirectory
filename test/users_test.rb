@@ -2,6 +2,10 @@ require File.join(File.dirname(File.expand_path(__FILE__)), *%w[helper])
 
 class UserTest < ActiveSupport::TestCase
 
+  def setup
+    ad = ActiveDirectory::User.find(:first, :filter => {:samaccountname => CONFIG[:test][:samaccountname]})
+    ad.destroy if ad
+  end
   test "find a user" do
     ad = ActiveDirectory::User.find(:first)
     assert !ad.nil?

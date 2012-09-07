@@ -12,12 +12,12 @@ class GroupTest < ActiveSupport::TestCase
                                   :name => CONFIG[:test][:group_1_name],
                                   :description => "this is a test group",
                                   :info => "this is where the info is stored")
-    group = ActiveDirectory::Group.find_by_name(CONFIG[:test][:group_1_name])
+    group = ActiveDirectory::Group.find(:first, :filter => {:name => CONFIG[:test][:group_1_name]})
     assert_not_nil group
     assert_equal group.name, CONFIG[:test][:group_1_name]
     group.destroy
 
-    group = ActiveDirectory::Group.find_by_name(CONFIG[:test][:group_1_name])
+    group = ActiveDirectory::Group.find(:first, :filter => {:name => CONFIG[:test][:group_1_name]})
     assert_nil group
 
   end

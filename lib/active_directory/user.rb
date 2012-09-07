@@ -65,7 +65,7 @@ module ActiveDirectory
     #
     def manager
       return nil if @entry.manager.nil?
-      User.find_by_distinguishedName(@entry.manager.to_s)
+      User.find(:first, :filter => { :distinguishedName => @entry.manager.to_s})
     end
 
     #
@@ -75,7 +75,7 @@ module ActiveDirectory
     # called Marketting, this method would only return the Sales group.
     #
     def groups
-      @groups ||= Group.find(:all, :distinguishedname => @entry.memberOf)
+      @groups ||= Group.find(:all, :filter => { :distinguishedname => @entry.memberOf })
     end
 
     #
@@ -84,7 +84,7 @@ module ActiveDirectory
     #
     def direct_reports
       return [] if @entry.directReports.nil?
-      @direct_reports ||= User.find(:all, @entry.directReports)
+      @direct_reports ||= User.find(:all, :filter => @entry.directReports )
     end
 
     #

@@ -230,12 +230,14 @@ module ActiveDirectory
     # (a User or a Group) back, or nil, if there were no entries
     # matching your filter.
     #
-    def self.find(*args)
+    def self.find(limit, args = {})
       return false unless connected?
 
       options = {
-        :filter => (args[1].nil?) ? NIL_FILTER : args[1],
-        :in => ''
+        :filter => (args[:filter] || NIL_FILTER ),
+        :in => '',
+        :scope => (args[:scope] || Net::LDAP::SearchScope_WholeSubtree),
+        :attributes => args[:attributes] 
       }
 
       cached_results = find_cached_results(args[1])
@@ -249,9 +251,9 @@ module ActiveDirectory
 
       options[:filter] = options[:filter] & filter unless self.filter == NIL_FILTER
 
-      if (args.first == :all)
+      if (limit == :all)
         find_all(options)
-      elsif (args.first == :first)
+      elsif (limit == :first)
         find_first(options)
       else
         raise ArgumentError, 'Invalid specifier (not :all, and not :first) passed to find()'
@@ -293,7 +295,7 @@ module ActiveDirectory
 
     def self.find_all(options)
       results = []
-      ldap_objs = @@ldap.search(:filter => options[:filter], :base => options[:in]) || []
+      ldap_objs = @@ldap.search(:filter => options[:filter], :attributes => options[:attributes], :scope => options[:scope], :base => options[:in]) || []
 
       ldap_objs.each do |entry|
         ad_obj = new(entry)
@@ -305,7 +307,7 @@ module ActiveDirectory
     end
 
     def self.find_first(options)
-      ldap_result = @@ldap.search(:filter => options[:filter], :base => options[:in])
+      ldap_result = @@ldap.search(:filter => options[:filter], :attributes => options[:attributes], :scope => options[:scope], :base => options[:in])
       return nil if ldap_result.empty?
 
       ad_obj = new(ldap_result[0])
@@ -420,7 +422,7 @@ module ActiveDirectory
       begin
         attributes.merge!(required_attributes)
         if @@ldap.add(:dn => dn.to_s, :attributes => attributes)
-          return find_by_distinguishedName(dn.to_s)
+          return find(:first, :filter => {:distinguishedName => dn.to_s})
         else
           return nil
         end

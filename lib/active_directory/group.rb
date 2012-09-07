@@ -98,7 +98,7 @@ module ActiveDirectory
     # belong to this Group, or any of its subgroups, are returned.
     # 
     def member_users(recursive = false)
-                        @member_users = User.find(:all, :distinguishedname => @entry.member).delete_if { |u| u.nil? }
+                        @member_users = User.find(:all, :filter => {:distinguishedname => @entry.member}).delete_if { |u| u.nil? }
                         if recursive then
                           self.member_groups.each do |group|
                             @member_users.concat(group.member_users(true))
@@ -117,7 +117,7 @@ module ActiveDirectory
     # belong to this Group, or any of its subgroups, are returned.
     # 
     def member_groups(recursive = false)
-                        @member_groups ||= Group.find(:all, :distinguishedname => @entry.member).delete_if { |g| g.nil? }
+                        @member_groups ||= Group.find(:all, :filter => {:distinguishedname => @entry.member}).delete_if { |g| g.nil? }
                         if recursive then
                           self.member_groups.each do |group|
                             @member_groups.concat(group.member_groups(true))
@@ -131,7 +131,7 @@ module ActiveDirectory
     #
     def groups
       return [] if memberOf.nil?
-      @groups ||= Group.find(:all, :distinguishedname => @entry.memberOf).delete_if { |g| g.nil? }
+      @groups ||= Group.find(:all, :filter => {:distinguishedname => @entry.memberOf}).delete_if { |g| g.nil? }
     end
   end
 end
